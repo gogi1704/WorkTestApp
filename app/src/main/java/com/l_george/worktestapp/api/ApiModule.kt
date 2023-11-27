@@ -1,5 +1,6 @@
 package com.l_george.worktestapp.api
 
+import com.l_george.worktestapp.auth.TestAuth
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,13 +26,19 @@ class ApiModule {
 
     @Provides
     @Singleton
-    fun provideClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient =
+    fun provideClient(loggingInterceptor: HttpLoggingInterceptor , auth: TestAuth): OkHttpClient =
         OkHttpClient().newBuilder()
             .addInterceptor(loggingInterceptor)
             .addInterceptor { chain ->
                 val request = chain.request().newBuilder()
                     .addHeader("app-key" , "12345")
                     .addHeader("v" , "1")
+                    .build()
+                return@addInterceptor chain.proceed(request)
+            }
+            .addInterceptor { chain ->
+                val request = chain.request().newBuilder()
+                    .addHeader("token" , auth.token?: "")
                     .build()
                 return@addInterceptor chain.proceed(request)
             }
