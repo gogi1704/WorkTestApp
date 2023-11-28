@@ -1,6 +1,5 @@
 package com.l_george.worktestapp.ui.fragments
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -24,8 +23,6 @@ class AuthFragment : Fragment() {
     private val logInViewModel: LogInViewModel by viewModels()
 
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,16 +35,26 @@ class AuthFragment : Fragment() {
             }
 
             logInViewModel.appStateLiveData.observe(viewLifecycleOwner) {
-                progressBar.visibility = if (it.isLoad)View.VISIBLE else View.GONE
+                progressBar.visibility = if (it.isLoad) View.VISIBLE else View.GONE
                 when (it.exception) {
-                    is ApiException -> createToast(requireContext(), getString(R.string.server_toast))
+                    is ApiException -> makeToast(
+                        getString(R.string.server_toast)
+                    )
+
                     is AuthException -> {
                         inputLogin.error = getString(R.string.login_error_hint)
                         inputPassword.error = getString(R.string.password_error_hint)
-                        createToast(requireContext(), getString(R.string.auth_toast))
+                        makeToast(getString(R.string.auth_toast))
                     }
-                    is NetworkException -> createToast(requireContext(), getString(R.string.network_toast))
-                    is UnknownException -> createToast(requireContext(), getString(R.string.unknown_toast))
+
+                    is NetworkException -> makeToast(
+                        getString(R.string.network_toast)
+                    )
+
+                    is UnknownException -> makeToast(
+                        getString(R.string.unknown_toast)
+                    )
+
                     null -> {}
                 }
             }
@@ -65,7 +72,6 @@ class AuthFragment : Fragment() {
 
 }
 
-
-private fun createToast(context: Context, message: String) {
+fun Fragment.makeToast(message: String) {
     Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 }

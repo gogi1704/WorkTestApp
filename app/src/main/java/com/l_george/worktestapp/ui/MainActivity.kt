@@ -1,7 +1,8 @@
-package com.l_george.worktestapp
+package com.l_george.worktestapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.l_george.worktestapp.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
