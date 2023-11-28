@@ -6,6 +6,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.l_george.worktestapp.data.models.PaymentModel
 import com.l_george.worktestapp.databinding.PaymentItemLayoutBinding
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class PaymentAdapter :
     ListAdapter<PaymentModel, PaymentAdapter.PaymentViewHolder>(PaymentCallBack()) {
@@ -16,7 +19,7 @@ class PaymentAdapter :
             with(binding) {
                 textTitle.text = item.title
                 textAmount.text = item.amount.toString()
-                textDate.text = item.created.toString()
+                textDate.text = parseDate(item.created.toLong())
             }
         }
     }
@@ -30,4 +33,12 @@ class PaymentAdapter :
     override fun onBindViewHolder(holder: PaymentViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
+
+
+}
+
+private fun parseDate(time: Long): String {
+    val date = Date(time * 1000)
+    val dateFormat = SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault())
+    return dateFormat.format(date)
 }

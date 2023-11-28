@@ -46,7 +46,7 @@ class PaymentFragment : Fragment() {
             }
 
             paymentViewModel.paymentListLiveData.observe(viewLifecycleOwner) {
-                adapter.submitList(it)
+                adapter.submitList(it.reversed())
             }
 
             loginViewModel.isAuthLiveData.observe(viewLifecycleOwner) {
