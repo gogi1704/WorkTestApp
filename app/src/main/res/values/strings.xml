@@ -13,7 +13,7 @@
     <string name="unknown_toast">Unknown error</string>
     <string name="login_error_hint">check login</string>
     <string name="password_error_hint">check password</string>
-
+    <string name="payments">Payments</string>
 
 
 </resources>

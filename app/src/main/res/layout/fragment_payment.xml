@@ -1,14 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.fragments.PaymentFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/topBar"
+        android:layout_gravity="top"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="?actionBarSize">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/roboto_bold"
+            android:text="@string/payments"
+            android:textSize="20sp" />
+
+        <ImageButton
+            android:id="@+id/button_back"
+            android:src="@drawable/baseline_arrow_back_ios_24"
+            android:background="@color/alfa"
+            android:layout_gravity="start|center"
+            android:layout_marginStart="8dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:importantForAccessibility="no" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_payments"
+        android:layout_marginTop="?actionBarSize"
+        android:layout_width="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"
+        tools:listitem="@layout/payment_item_layout"
+        android:layout_height="match_parent"/>
+
 
 </FrameLayout>
