@@ -22,6 +22,12 @@ class PaymentFragment : Fragment() {
     ): View {
         binding = FragmentPaymentBinding.inflate(layoutInflater, container, false)
 
+        with(binding){
+
+
+
+        }
+
 
 
         return binding.root
