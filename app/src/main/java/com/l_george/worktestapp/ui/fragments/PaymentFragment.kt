@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.l_george.worktestapp.databinding.FragmentPaymentBinding
+import com.l_george.worktestapp.ui.recyclerAdapters.PaymentAdapter
 import com.l_george.worktestapp.ui.viewModels.PaymentsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -14,6 +15,12 @@ import dagger.hilt.android.AndroidEntryPoint
 class PaymentFragment : Fragment() {
     private lateinit var binding: FragmentPaymentBinding
     private val paymentViewModel: PaymentsViewModel by viewModels()
+    private lateinit var adapter: PaymentAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        adapter = PaymentAdapter()
+    }
 
 
     override fun onCreateView(
@@ -22,8 +29,8 @@ class PaymentFragment : Fragment() {
     ): View {
         binding = FragmentPaymentBinding.inflate(layoutInflater, container, false)
 
-        with(binding){
-
+        with(binding) {
+            recyclerPayments.adapter = adapter
 
 
         }

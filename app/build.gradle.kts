@@ -48,6 +48,8 @@ dependencies {
     val okhttplogging_version = "4.10.0"
     val retrofit_version = "2.9.0"
     val coroutines_version = "1.7.3"
+    val room_version = "2.6.0"
+
 
 
     implementation("androidx.core:core-ktx:1.12.0")
@@ -76,4 +78,9 @@ dependencies {
     //Coroutines
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version")
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$coroutines_version")
+
+    //Room
+    implementation ("androidx.room:room-runtime:$room_version")
+    kapt ("androidx.room:room-compiler:$room_version")
+    implementation ("androidx.room:room-ktx:$room_version")
 }
