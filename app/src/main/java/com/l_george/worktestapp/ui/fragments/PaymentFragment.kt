@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.l_george.worktestapp.databinding.FragmentPaymentBinding
 import com.l_george.worktestapp.ui.recyclerAdapters.PaymentAdapter
+import com.l_george.worktestapp.ui.viewModels.LogInViewModel
 import com.l_george.worktestapp.ui.viewModels.PaymentsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -15,6 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class PaymentFragment : Fragment() {
     private lateinit var binding: FragmentPaymentBinding
     private val paymentViewModel: PaymentsViewModel by viewModels()
+    private val loginViewModel :LogInViewModel by viewModels()
     private lateinit var adapter: PaymentAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,9 +35,22 @@ class PaymentFragment : Fragment() {
         with(binding) {
             recyclerPayments.adapter = adapter
 
+            buttonSignOut.setOnClickListener {
+                loginViewModel.signOut()
+            }
+
             paymentViewModel.paymentListLiveData.observe(viewLifecycleOwner){
                 adapter.submitList(it)
             }
+
+            loginViewModel.isAuthLiveData.observe(viewLifecycleOwner){
+                if (!it){
+                    findNavController().navigateUp()
+                }
+            }
+
+
+
 
 
         }

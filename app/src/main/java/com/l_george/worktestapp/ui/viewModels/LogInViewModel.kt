@@ -3,6 +3,7 @@ package com.l_george.worktestapp.ui.viewModels
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.l_george.worktestapp.data.models.UserModel
 import com.l_george.worktestapp.exception.ApiException
@@ -12,6 +13,8 @@ import com.l_george.worktestapp.exception.NetworkException
 import com.l_george.worktestapp.exception.UnknownException
 import com.l_george.worktestapp.repository.logInRepository.LogInRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,7 +24,9 @@ class LogInViewModel @Inject constructor(
     private val repository: LogInRepositoryImpl
 ) : AndroidViewModel(application) {
 
-    val isAuthLiveData = MutableLiveData(repository.isAuth)
+    val isAuthLiveData = repository.isAuth
+        .map { it != null}
+        .asLiveData(Dispatchers.Default)
 
 
     private var appState = AppState()
@@ -31,12 +36,16 @@ class LogInViewModel @Inject constructor(
         }
     val appStateLiveData = MutableLiveData(appState)
 
+    fun signOut() {
+        repository.signOut()
+    }
+
 
     fun logIn(login: String, password: String) {
         appState = appState.copy(isLoad = true)
         viewModelScope.launch {
             try {
-                isAuthLiveData.value = repository.logIn(UserModel(login, password))
+                 repository.logIn(UserModel(login, password))
             } catch (network: NetworkException) {
                 appState = appState.copy(exception = network)
             } catch (api: ApiException) {

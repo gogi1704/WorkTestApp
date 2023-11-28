@@ -24,6 +24,8 @@ class AuthFragment : Fragment() {
     private val logInViewModel: LogInViewModel by viewModels()
 
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -61,8 +63,8 @@ class AuthFragment : Fragment() {
         return binding.root
     }
 
-
 }
+
 
 private fun createToast(context: Context, message: String) {
     Toast.makeText(context, message, Toast.LENGTH_SHORT).show()

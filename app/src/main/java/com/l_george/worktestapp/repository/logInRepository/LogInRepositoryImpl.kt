@@ -7,6 +7,7 @@ import com.l_george.worktestapp.exception.ApiException
 import com.l_george.worktestapp.exception.AuthException
 import com.l_george.worktestapp.exception.NetworkException
 import com.l_george.worktestapp.exception.UnknownException
+import kotlinx.coroutines.flow.MutableStateFlow
 import java.io.IOException
 import javax.inject.Inject
 
@@ -16,7 +17,7 @@ class LogInRepositoryImpl @Inject constructor(
 ) :
     LogInRepository {
 
-    val isAuth: Boolean
+    val isAuth: MutableStateFlow<String?>
         get() = auth.isAuth
 
     override suspend fun logIn(userModel: UserModel): Boolean {
@@ -46,5 +47,9 @@ class LogInRepositoryImpl @Inject constructor(
 
     }
 
+    fun signOut(){
+
+        auth.clearToken()
+    }
 
 }
