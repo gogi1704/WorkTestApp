@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.l_george.worktestapp.R
@@ -54,7 +55,7 @@ class PaymentFragment : Fragment() {
                 }
             }
 
-            loginViewModel.appStateLiveData.observe(viewLifecycleOwner) {
+            paymentViewModel.appStateLiveData.observe(viewLifecycleOwner) {
                 progressBar.visibility = if (it.isLoad) View.VISIBLE else View.GONE
                 when (it.exception) {
                     is ApiException -> makeToast(getString(R.string.server_toast))
@@ -68,7 +69,11 @@ class PaymentFragment : Fragment() {
 
         }
 
+        val backCallBack = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {}
 
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, backCallBack)
 
         return binding.root
     }
