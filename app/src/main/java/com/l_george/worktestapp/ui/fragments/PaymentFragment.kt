@@ -32,6 +32,10 @@ class PaymentFragment : Fragment() {
         with(binding) {
             recyclerPayments.adapter = adapter
 
+            paymentViewModel.paymentListLiveData.observe(viewLifecycleOwner){
+                adapter.submitList(it)
+            }
+
 
         }
 

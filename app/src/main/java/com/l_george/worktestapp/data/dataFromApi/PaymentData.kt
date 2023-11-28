@@ -1,6 +1,6 @@
 package com.l_george.worktestapp.data.dataFromApi
 
-import com.l_george.worktestapp.data.models.PaymentModel
+import com.l_george.worktestapp.data.dataBase.entities.PaymentEntity
 
 data class PaymentData(
     val id: String ,
@@ -9,8 +9,8 @@ data class PaymentData(
     val created: String,
 )
 
-fun PaymentData.toPaymentModel(): PaymentModel =
-    PaymentModel(
+fun PaymentData.toEntity(): PaymentEntity =
+    PaymentEntity(
                 id = try {
                     id.toInt()
                 } catch (e: Exception) {
@@ -35,3 +35,4 @@ fun PaymentData.toPaymentModel(): PaymentModel =
                 },
 
     )
+
