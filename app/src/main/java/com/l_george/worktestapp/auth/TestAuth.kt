@@ -4,7 +4,6 @@ import android.content.Context
 import javax.inject.Inject
 
 
-
 class TestAuth @Inject constructor(context: Context) {
     companion object {
         const val PREF_AUTH_TOKEN_NAME = "PREF_AUTH_TOKEN_NAME"
@@ -13,8 +12,10 @@ class TestAuth @Inject constructor(context: Context) {
 
     private val authPref = context.getSharedPreferences(PREF_AUTH_TOKEN_NAME, Context.MODE_PRIVATE)
 
-    val token:String?
-        get() = authPref.getString(PREF_AUTH_TOKEN_VALUE , null)
+    val isAuth = token != null
+
+    val token: String?
+        get() = authPref.getString(PREF_AUTH_TOKEN_VALUE, null)
 
     fun saveToken(token: String) {
         authPref.edit()
@@ -22,7 +23,7 @@ class TestAuth @Inject constructor(context: Context) {
             .apply()
     }
 
-    fun clearToken(){
+    fun clearToken() {
         authPref.edit()
             .clear()
             .apply()

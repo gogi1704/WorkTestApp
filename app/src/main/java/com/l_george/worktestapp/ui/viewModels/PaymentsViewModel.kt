@@ -1,4 +1,4 @@
-package com.l_george.worktestapp.ui
+package com.l_george.worktestapp.ui.viewModels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
