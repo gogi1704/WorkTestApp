@@ -38,14 +38,14 @@ class AuthFragment : Fragment() {
             logInViewModel.appStateLiveData.observe(viewLifecycleOwner) {
                 progressBar.visibility = if (it.isLoad)View.VISIBLE else View.GONE
                 when (it.exception) {
-                    is ApiException -> createToast(requireContext(), "Server error. Try later.")
+                    is ApiException -> createToast(requireContext(), getString(R.string.server_toast))
                     is AuthException -> {
-                        inputLogin.error = "check login"
-                        inputPassword.error = "check password"
-                        createToast(requireContext(), "Invalid login or password")
+                        inputLogin.error = getString(R.string.login_error_hint)
+                        inputPassword.error = getString(R.string.password_error_hint)
+                        createToast(requireContext(), getString(R.string.auth_toast))
                     }
-                    is NetworkException -> createToast(requireContext(), "Network error. Check internet connection.")
-                    is UnknownException -> createToast(requireContext(), "Unknown error")
+                    is NetworkException -> createToast(requireContext(), getString(R.string.network_toast))
+                    is UnknownException -> createToast(requireContext(), getString(R.string.unknown_toast))
                     null -> {}
                 }
             }

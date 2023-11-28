@@ -5,5 +5,15 @@
     <string name="sign_in_title">Sign in</string>
     <string name="login_hint">Login</string>
     <string name="password_hint">Password</string>
-    <string name="ok">OK</string>
+    <string name="ok">OK</string
+        >
+    <string name="server_toast">Server error. Try later.</string>
+    <string name="auth_toast">Invalid login or password.</string>
+    <string name="network_toast">Network error. Check internet connection.</string>
+    <string name="unknown_toast">Unknown error</string>
+    <string name="login_error_hint">check login</string>
+    <string name="password_error_hint">check password</string>
+
+
+
 </resources>
