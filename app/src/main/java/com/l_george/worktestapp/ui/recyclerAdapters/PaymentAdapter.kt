@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.l_george.worktestapp.data.models.PaymentModel
 import com.l_george.worktestapp.databinding.PaymentItemLayoutBinding
+import com.l_george.worktestapp.utils.DATE_PARSE_PATTERN
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -39,6 +40,6 @@ class PaymentAdapter :
 
 private fun parseDate(time: Long): String {
     val date = Date(time * 1000)
-    val dateFormat = SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault())
+    val dateFormat = SimpleDateFormat(DATE_PARSE_PATTERN, Locale.getDefault())
     return dateFormat.format(date)
 }

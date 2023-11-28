@@ -7,6 +7,7 @@ import com.l_george.worktestapp.exception.ApiException
 import com.l_george.worktestapp.exception.AuthException
 import com.l_george.worktestapp.exception.NetworkException
 import com.l_george.worktestapp.exception.UnknownException
+import com.l_george.worktestapp.utils.RESPONSE_ANSWER_FALSE
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.io.IOException
 import javax.inject.Inject
@@ -24,7 +25,7 @@ class LogInRepositoryImpl @Inject constructor(
         try {
             val response = apiService.logIn(userModel)
             if (response.isSuccessful) {
-                if (response.body()?.success == "false") {
+                if (response.body()?.success == RESPONSE_ANSWER_FALSE) {
                     throw AuthException()
                 } else {
                     auth.saveToken(response.body()?.response?.token ?: throw ApiException())

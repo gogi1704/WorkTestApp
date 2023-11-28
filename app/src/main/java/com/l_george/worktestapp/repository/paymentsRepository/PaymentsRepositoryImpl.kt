@@ -6,6 +6,7 @@ import com.l_george.worktestapp.data.dataFromApi.toEntity
 import com.l_george.worktestapp.exception.ApiException
 import com.l_george.worktestapp.exception.NetworkException
 import com.l_george.worktestapp.exception.UnknownException
+import com.l_george.worktestapp.utils.RESPONSE_ANSWER_FALSE
 import java.io.IOException
 import javax.inject.Inject
 
@@ -21,7 +22,7 @@ class PaymentsRepositoryImpl @Inject constructor(
         try {
             val response = apiService.getPayments()
             if (response.isSuccessful) {
-                if (response.body()?.success == "false") {
+                if (response.body()?.success == RESPONSE_ANSWER_FALSE) {
                     throw ApiException()
                 } else {
                     dao.insertPayments(response.body()?.response?.map { it.toEntity() }
