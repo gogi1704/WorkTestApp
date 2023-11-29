@@ -5,16 +5,12 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.l_george.worktestapp.data.dataBase.entities.toModel
 import com.l_george.worktestapp.exception.ApiException
 import com.l_george.worktestapp.exception.AppState
 import com.l_george.worktestapp.exception.NetworkException
 import com.l_george.worktestapp.exception.UnknownException
 import com.l_george.worktestapp.repository.paymentsRepository.PaymentsRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -32,12 +28,6 @@ class PaymentsViewModel @Inject constructor(
     val appStateLiveData = MutableLiveData(appState)
 
     val paymentListLiveData = repository.paymentsListFlow
-        .flowOn(Dispatchers.Default)
-        .map { list ->
-            list.map {
-                it.toModel()
-            }
-        }
         .asLiveData()
 
 

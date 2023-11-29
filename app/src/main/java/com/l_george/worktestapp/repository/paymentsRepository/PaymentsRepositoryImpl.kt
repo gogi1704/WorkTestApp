@@ -2,11 +2,15 @@ package com.l_george.worktestapp.repository.paymentsRepository
 
 import com.l_george.worktestapp.api.ApiService
 import com.l_george.worktestapp.data.dataBase.dao.PaymentsDao
+import com.l_george.worktestapp.data.dataBase.entities.toModel
 import com.l_george.worktestapp.data.dataFromApi.toEntity
 import com.l_george.worktestapp.exception.ApiException
 import com.l_george.worktestapp.exception.NetworkException
 import com.l_george.worktestapp.exception.UnknownException
 import com.l_george.worktestapp.utils.RESPONSE_ANSWER_FALSE
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import java.io.IOException
 import javax.inject.Inject
 
@@ -16,6 +20,12 @@ class PaymentsRepositoryImpl @Inject constructor(
 ) : PaymentsRepository {
 
     val paymentsListFlow = dao.getPayments()
+        .flowOn(Dispatchers.Default)
+        .map { list ->
+            list.map {
+                it.toModel()
+            }
+        }
 
 
     override suspend fun getPayments() {
